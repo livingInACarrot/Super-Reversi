@@ -3,28 +3,6 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
-/*
-draw()
-possibilities()
-rowIsOk(int, int, int, int)
-move()
-redrawRow(int, int, int, int)
-chipsInRow(int, int, int, int)
-copy(int[][], int[][])
-cancel()
-menu()
-end()
-bot()
-
-Main {
-    main()
-}
-
-
-
- */
-
-
 
 
 // 0 = _, 1 = ●, 2 = ⭘, 3 = возможные ходы
@@ -43,7 +21,6 @@ public class Reversi {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
 
-    // Выводит на экран игровое поле.
     public static void draw() {
         System.out.print(ANSI_RESET);
         int count = 1;
@@ -66,7 +43,6 @@ public class Reversi {
         }
     }
 
-    // Выявляет в поле возможные для хода клетки.
     public static void possibilities() {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
@@ -100,7 +76,6 @@ public class Reversi {
         }
     }
 
-    // Проверяет, можно ли в конце ряда поставить фишку.
     public static boolean rowIsOk(int row, int col, int vert, int hor) {
         row += vert;
         col += hor;
@@ -116,8 +91,6 @@ public class Reversi {
         }
     }
 
-    // Ходыт... хадит... ход делат тут вв общем.
-    // Самый важный метод в программе.
     public static void move() {
         int r, c;
 
@@ -199,7 +172,6 @@ public class Reversi {
         move();
     }
 
-    // Перекрашивает ряд фишек в цвет фишек противника при их захвате.
     public static void redrawRow(int row, int col, int vert, int hor) {
         while (true) {
             row += vert;
@@ -210,7 +182,6 @@ public class Reversi {
         }
     }
 
-    // Подсчёт фишек в ряду (нужно для бота, чтобы он взвесил выгоду разных ходов).
     public static int chipsInRow(int row, int col, int vert, int hor) {
         int chips = 0;
         while (true) {
@@ -222,7 +193,6 @@ public class Reversi {
         }
     }
 
-    // Обычное копирование массивов, листайте дальше. (как оказалось, .clone() не работает)
     public static void copy(int[][] arr1, int[][] arr2) {
         // Элементы arr2 копируем в arr1
         for (int i = 0; i < 8; i++) {
@@ -230,7 +200,6 @@ public class Reversi {
         }
     }
 
-    // Отмена хода.
     public static void cancel() {
         if (previousF.length == 0) {
             System.out.println(ANSI_RED + "Сейчас отменить ход невозможно.");
@@ -243,7 +212,6 @@ public class Reversi {
         }
     }
 
-    // Главное меню собсна.
     public static void menu() {
         player = 1;
         previousF = new int[0][0];
@@ -296,7 +264,6 @@ public class Reversi {
         move();
     }
 
-    // Конец игры.......
     public static void end() {
         int score1 = 0;
         int score2 = 0;
@@ -359,9 +326,6 @@ public class Reversi {
         menu();
     }
 
-    // Всем тихо, бот думоет!
-    // Его стратегия простая - он выбирает из возможных ходов самые сытные по поеданию чужих фишек
-    // и из самых сытных вариантов выбирает уже наобум. В общем, играет примерно как я.
     public static int bot() {
         Random random = new Random();
         int r, c, good;
